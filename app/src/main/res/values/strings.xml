@@ -9,7 +9,7 @@
     <string name="tv_titulo_lux" translatable="false">Iluminación Actual</string>
     <string name="tv_titulo_historial" translatable="false">Historial de registros</string>
     <string name="tv_titulo_mapa" translatable="false">Mapa de registros</string>
-    <string name="et_nombre" translatable="false">Nombre</string>
+    <string name="et_titulo_regisro" translatable="false">Título</string>
     <string name="spinner_categoria" translatable="false">Categoría</string>
     <string name="et_descripcion" translatable="false">Descripción</string>
     <string name="tv_latitud" translatable="false">Latitud</string>
@@ -22,6 +22,7 @@
     <string name="placeholder_registro" translatable="false">Registro</string>
     <string name="btn_fecha" translatable="false">Fecha</string>
     <string name="placeholder_luz_actual" translatable="false">Luz actual: </string>
+    <string name="mensaje_sin_sensor" translatable="false">Este dispositivo no tiene sensor de luz.</string>
 
     <string-array name="arreglo_spinner">
         <item>Interior</item>
