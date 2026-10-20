@@ -35,22 +35,24 @@
             <EditText
                 android:id="@+id/etNombre"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:ems="10"
                 android:inputType="text"
+                android:autofillHints="NombreUsuario"
                 android:hint="@string/et_nombre"/>
 
-            <Spinner
-                android:id="@+id/spCategoría"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <EditText
-                android:id="@+id/etHora"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="time" />
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spCategoria"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/ettmDescripcion"
@@ -59,6 +61,7 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
+                android:autofillHints="Sin descripción"
                 android:hint="@string/et_descripcion"/>
         </LinearLayout>
 
@@ -93,11 +96,6 @@
                 android:textAlignment="center"
                 android:text="@string/tv_longitud" />
 
-            <Button
-                android:id="@+id/btnCapturarUbicacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/btn_capturar_ubicacion" />
         </LinearLayout>
 
         <TextView
@@ -122,13 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:text="@string/tv_lux" />
-
-            <Button
-                android:id="@+id/btnCapturarLux"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/btn_capturar_lux" />
+                android:text="@string/placeholder_numero" />
 
         </LinearLayout>
 

@@ -1,24 +1,31 @@
 <resources>
-    <string name="app_name">luxmap</string>
-    <string name="titulo_menu_principal">LuxMap</string>
-    <string name="texto_boton_registro">Registrar Lectura</string>
-    <string name="texto_boton_historial">Ver Historial</string>
-    <string name="texto_boton_mapa">Ver Mapa</string>
-    <string name="tv_titulo_formulario">Datos del registro</string>
-    <string name="tv_titulo_coordenadas">Coordenadas</string>
-    <string name="tv_titulo_lux">Iluminación Actual</string>
-    <string name="tv_titulo_historial">Historial de registros</string>
-    <string name="tv_titulo_mapa">Mapa de registros</string>
-    <string name="et_nombre">Nombre</string>
-    <string name="spinner_categoria">Categoría</string>
-    <string name="et_descripcion">Descripción</string>
-    <string name="tv_latitud">Latitud</string>
-    <string name="tv_longitud">Longitud</string>
-    <string name="btn_capturar_ubicacion">Capturar Ubicacion</string>
-    <string name="tv_lux">Lux</string>
-    <string name="btn_capturar_lux">Capturar Lux</string>
-    <string name="btn_registrar">Registrar</string>
-    <string name="placeholder_numero">0</string>
-    <string name="placeholder_registro">Registro</string>
+    <string name="app_name" translatable="false">luxmap</string>
+    <string name="titulo_menu_principal" translatable="false">LuxMap</string>
+    <string name="texto_boton_registro" translatable="false">Registrar Lectura</string>
+    <string name="texto_boton_historial" translatable="false">Ver Historial</string>
+    <string name="texto_boton_mapa" translatable="false">Ver Mapa</string>
+    <string name="tv_titulo_formulario" translatable="false">Datos del registro</string>
+    <string name="tv_titulo_coordenadas" translatable="false">Coordenadas</string>
+    <string name="tv_titulo_lux" translatable="false">Iluminación Actual</string>
+    <string name="tv_titulo_historial" translatable="false">Historial de registros</string>
+    <string name="tv_titulo_mapa" translatable="false">Mapa de registros</string>
+    <string name="et_nombre" translatable="false">Nombre</string>
+    <string name="spinner_categoria" translatable="false">Categoría</string>
+    <string name="et_descripcion" translatable="false">Descripción</string>
+    <string name="tv_latitud" translatable="false">Latitud</string>
+    <string name="tv_longitud" translatable="false">Longitud</string>
+    <string name="btn_capturar_ubicacion" translatable="false">Capturar Ubicacion</string>
+    <string name="tv_lux" translatable="false">Lux</string>
+    <string name="btn_capturar_lux" translatable="false">Capturar Lux</string>
+    <string name="btn_registrar" translatable="false">Registrar</string>
+    <string name="placeholder_numero" translatable="false">0</string>
+    <string name="placeholder_registro" translatable="false">Registro</string>
+    <string name="btn_fecha" translatable="false">Fecha</string>
+    <string name="placeholder_luz_actual" translatable="false">Luz actual: </string>
+
+    <string-array name="arreglo_spinner">
+        <item>Interior</item>
+        <item>Exterior</item>
+    </string-array>
 
 </resources>
