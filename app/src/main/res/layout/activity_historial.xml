@@ -16,7 +16,7 @@
         android:padding="12dp" >
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvTituloHistorial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -24,10 +24,9 @@
             android:text="@string/tv_titulo_historial" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/borde"
-            android:padding="8dp" />
+            android:layout_marginTop="8dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

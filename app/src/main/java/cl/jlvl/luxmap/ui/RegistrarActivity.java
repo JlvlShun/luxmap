@@ -95,16 +95,15 @@ public class RegistrarActivity extends AppCompatActivity {
             // En caso de que las coordenadas se obtuvieron, se procede a crear el registro
             String titulo = etTitulo.getText().toString().trim();
             String descripcion = etDescripcion.getText().toString().trim();
-            String categoria = spCategoria.getSelectedItem().toString();
+            Categoria categoria = Categoria.valueOf(spCategoria.getSelectedItem().toString()) ;
             Date fechaActual = new Date();
             double latitud = Double.parseDouble(tvLatitud.getText().toString());
             double longitud = Double.parseDouble(tvLongitud.getText().toString());
             double lux = Double.parseDouble(tvLux.getText().toString()); // <- Tiene un valor por defecto de 0 usando el placeholder de 'res/values/strings'
-            Categoria categoriaEnum = Categoria.valueOf(categoria.trim()); // <- Se convierte el string categoría en el enum de Categoría para crear el objeto Registro
 
 
             // Creación del objeto
-            Registro registro = new Registro(titulo, categoriaEnum, fechaActual, descripcion, latitud, longitud, lux);
+            Registro registro = new Registro(titulo, categoria, fechaActual, descripcion, latitud, longitud, lux);
 
             // Carga en Firebase usando el servicio de FirebaseService.java
             // El servicio responde con dos posibles eventos, onSuccess y onFailure dependiendo de si se logró guardar en la base de datos o no
