@@ -4,26 +4,40 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F7FA"
     tools:context=".ui.MapaActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp"
-        android:padding="12dp" >
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textSize="16sp"
-            android:text="@string/tv_titulo_mapa" />
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/tv_titulo_mapa"
+            android:textColor="#1F2937"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        <androidx.fragment.app.FragmentContainerView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/borde"
+            android:padding="4dp">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/mapFramentContainer"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </FrameLayout>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

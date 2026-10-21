@@ -2,8 +2,8 @@
     <string name="app_name" translatable="false">luxmap</string>
     <string name="titulo_menu_principal" translatable="false">LuxMap</string>
     <string name="texto_boton_registro" translatable="false">Registrar Lectura</string>
-    <string name="texto_boton_historial" translatable="false">Ver Historial</string>
-    <string name="texto_boton_mapa" translatable="false">Ver Mapa</string>
+    <string name="texto_boton_historial" translatable="false">Ver Registros de Lecturas</string>
+    <string name="texto_boton_mapa" translatable="false">Ver Mapa de Lecturas</string>
     <string name="tv_titulo_formulario" translatable="false">Datos del registro</string>
     <string name="tv_titulo_coordenadas" translatable="false">Coordenadas</string>
     <string name="tv_titulo_lux" translatable="false">Iluminación Actual</string>

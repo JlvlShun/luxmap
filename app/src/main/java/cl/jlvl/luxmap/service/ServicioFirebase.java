@@ -54,5 +54,4 @@ public class ServicioFirebase {
                     callback.onSuccess(registros);
                 }).addOnFailureListener(e -> callback.onFailure(e.getMessage()));
     }
-
 }

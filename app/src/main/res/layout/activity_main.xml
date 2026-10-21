@@ -5,44 +5,67 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F7FA"
     tools:context=".ui.MainActivity">
 
+    <TextView
+        android:id="@+id/tvTitulo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/titulo_menu_principal"
+        android:textAlignment="center"
+        android:textColor="#1F2937"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp"
-        android:padding="12dp">
-
-
-        <TextView
-            android:id="@+id/tvTitulo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/titulo_menu_principal"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:layout_marginTop="50dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitulo">
 
         <Button
             android:id="@+id/btnRegistrarNuevo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="220dp"
+            android:layout_height="56dp"
+            android:backgroundTint="#1565C0"
             android:text="@string/texto_boton_registro"
-            android:layout_marginTop="300dp"/>
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal" />
 
         <Button
             android:id="@+id/btnHistorial"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/texto_boton_historial" />
+            android:layout_width="220dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#1565C0"
+            android:text="@string/texto_boton_historial"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal" />
 
         <Button
             android:id="@+id/btnMapa"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/texto_boton_mapa" />
+            android:layout_width="220dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#1565C0"
+            android:text="@string/texto_boton_mapa"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
