@@ -23,6 +23,7 @@
     <string name="btn_fecha" translatable="false">Fecha</string>
     <string name="placeholder_luz_actual" translatable="false">Luz actual: </string>
     <string name="mensaje_sin_sensor" translatable="false">Este dispositivo no tiene sensor de luz.</string>
+    <string name="mensaje_sin_coordenadas" translatable="false">No se pudo obtener las coordenadas</string>
 
     <string-array name="arreglo_spinner">
         <item>Interior</item>

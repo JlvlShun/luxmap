@@ -1,5 +1,7 @@
-package cl.jlvl.luxmap;
+package cl.jlvl.luxmap.ui;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -10,30 +12,34 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Date;
 
+import cl.jlvl.luxmap.R;
 import cl.jlvl.luxmap.model.Categoria;
 import cl.jlvl.luxmap.model.Registro;
-import cl.jlvl.luxmap.model.SensorLux;
-import cl.jlvl.luxmap.service.FirebaseService;
+import cl.jlvl.luxmap.sensor.SensorLuzManager;
+import cl.jlvl.luxmap.service.ServicioFirebase;
+import cl.jlvl.luxmap.location.LocationProvider;
 
 public class RegistrarActivity extends AppCompatActivity {
+
     // Instancia del servicio de Firebase del constructor Firebase.java
-    private final FirebaseService servicioFirebase = new FirebaseService();
+    private final ServicioFirebase servicioFirebase = new ServicioFirebase();
+
     // Import de elementos de la interfaz gráfica
     private EditText etTitulo, etDescripcion;
-    private TextView tvLux;
+    private TextView tvLux, tvLatitud, tvLongitud, tvTituloCoords;
     private Button btnRegistrar;
     private Spinner spCategoria;
-    // Aún no hay servicio de GoogleMaps asi que por el momento, almaceno en memoria los valores de las coordenadas (Chillán)
-    // TODO: Reemplazar esto por los valores obtenidos del gps de GoogleMaps
-    private final double EjemploLatitud = -36.60667;
-    private final double EjemploLongitud = -72.10333;
-    private SensorLux sensorLux;
+
+    private boolean coordenadasObtenidas = false;
+    private SensorLuzManager sensorLuzManager;
+    private LocationProvider locationProvider;
 
 
     @Override
@@ -46,6 +52,9 @@ public class RegistrarActivity extends AppCompatActivity {
         etTitulo = findViewById(R.id.etNombre);
         etDescripcion = findViewById(R.id.ettmDescripcion);
         tvLux = findViewById(R.id.tvLux);
+        tvTituloCoords = findViewById(R.id.tvCoordenadas);
+        tvLatitud = findViewById(R.id.tvLatitud);
+        tvLongitud = findViewById(R.id.tvLongitud);
         spCategoria = findViewById(R.id.spCategoria);
         btnRegistrar = findViewById(R.id.btnRegistrar);
 
@@ -54,7 +63,7 @@ public class RegistrarActivity extends AppCompatActivity {
 
         // Instancia de la clase que maneja el sensor de luz
         // la clase expone dos eventos, uno para cuando cambia el valor de luz percibida por el sensor y otro para cuando no se encuentra el sensor en el dispositivo
-        sensorLux = new SensorLux(this, new SensorLux.OnCambioDeLuxListener() {
+        sensorLuzManager = new SensorLuzManager(this, new SensorLuzManager.OnCambioDeLuxListener() {
             @Override
             public void onValorCambiado(float luxes) {
                 tvLux.setText(String.valueOf(luxes));
@@ -66,23 +75,40 @@ public class RegistrarActivity extends AppCompatActivity {
             }
         });
 
+        locationProvider = new LocationProvider(this);
+        if (permisosConcedidos()) {
+            obtenerCoordenadas();
+        } else {
+            ActivityCompat.requestPermissions(RegistrarActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+        }
+
         // Al presionar el boton de Registro se capturan los datos de los EditTexts, los valores de los TextViews, la fecha actual con Date() y futuramente el valor actual de luz del sensor
         // Se usan esos datos para crear un objeto Registro para entregárselo al servicio que lo guarda en Firebase
-
         btnRegistrar.setOnClickListener(v-> {
+            // Se verifica primero que se obtuvieron las coordenadas, de lo contrario salta un aviso en pantalla y no se procede con el registro
+            if (!coordenadasObtenidas) {
+                Toast.makeText(RegistrarActivity.this, "No se han obtenido las coordenadas actuales.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // En caso de que las coordenadas se obtuvieron, se procede a crear el registro
             String titulo = etTitulo.getText().toString().trim();
             String descripcion = etDescripcion.getText().toString().trim();
             String categoria = spCategoria.getSelectedItem().toString();
             Date fechaActual = new Date();
+            double latitud = Double.parseDouble(tvLatitud.getText().toString());
+            double longitud = Double.parseDouble(tvLongitud.getText().toString());
             double lux = Double.parseDouble(tvLux.getText().toString()); // <- Tiene un valor por defecto de 0 usando el placeholder de 'res/values/strings'
             Categoria categoriaEnum = Categoria.valueOf(categoria.trim()); // <- Se convierte el string categoría en el enum de Categoría para crear el objeto Registro
 
+
             // Creación del objeto
-            Registro registro = new Registro(titulo, categoriaEnum, fechaActual, descripcion, EjemploLatitud, EjemploLongitud, lux);
+            Registro registro = new Registro(titulo, categoriaEnum, fechaActual, descripcion, latitud, longitud, lux);
 
             // Carga en Firebase usando el servicio de FirebaseService.java
             // El servicio responde con dos posibles eventos, onSuccess y onFailure dependiendo de si se logró guardar en la base de datos o no
-            servicioFirebase.GuardarRegistro(registro, new FirebaseService.OnFirebaseCallback() {
+            servicioFirebase.GuardarRegistro(registro, new ServicioFirebase.OnFirebaseCallback() {
                 @Override
                 public void onSuccess() {
                    Toast.makeText(RegistrarActivity.this, "Registro guardado", Toast.LENGTH_SHORT).show();
@@ -111,17 +137,42 @@ public class RegistrarActivity extends AppCompatActivity {
         spCategoria.setAdapter(adapter);
     }
 
+    // Se obtienen las coordenadas utilizando el metodo de LocationProvider y comunicamos los resultados con el callback
+    private void obtenerCoordenadas() {
+        locationProvider.obtenerCoordenadasActuales(new LocationProvider.UbicacionCallback() {
+            @Override
+            public void onUbicacionSuccess(double latitud, double longitud) {
+                tvLatitud.setText(String.valueOf(latitud));
+                tvLongitud.setText(String.valueOf(longitud));
+                coordenadasObtenidas = true;
+            }
+
+            @Override
+            public void onUbicacionFail(String mensajeError) {
+                Toast.makeText(RegistrarActivity.this, mensajeError, Toast.LENGTH_SHORT).show();
+                tvTituloCoords.setText(R.string.mensaje_sin_coordenadas);
+                coordenadasObtenidas = false;
+            }
+        });
+    }
+
+    // Se revisa que se cuente con los permisos de ubicacion para permitir la captura de la ubicación
+    private boolean permisosConcedidos() {
+        return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    }
+
     // Overrides de los métodos de AppCompatActivity
     // Al bloquear/desbloquear el teléfono se llaman a los métodos para activa/desactivar el listener del sensor
     @Override
     protected void onResume() {
         super.onResume();
-        sensorLux.iniciarSensor();
+        sensorLuzManager.iniciarSensor();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        sensorLux.detenerSensor();
+        sensorLuzManager.detenerSensor();
     }
 }

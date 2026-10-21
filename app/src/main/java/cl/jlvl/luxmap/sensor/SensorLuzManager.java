@@ -1,4 +1,4 @@
-package cl.jlvl.luxmap.model;
+package cl.jlvl.luxmap.sensor;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -6,7 +6,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-public class SensorLux implements SensorEventListener {
+public class SensorLuzManager implements SensorEventListener {
     // La interfaz SensorEventListener requiere de implementar los métodos para los eventos onSensorChanged y onAccuracyChanged
 
     // Esta interfaz contiene eventos para comunicar el valor de luz percibido por el sensor de forma activa y otro para el caso en que no se cuente con un sensor en el dispositivo
@@ -19,8 +19,8 @@ public class SensorLux implements SensorEventListener {
     private Sensor sensorDeLux;
     private final OnCambioDeLuxListener listener;
 
-    // El constructor recibe el contexto de la aplicación y el listener que va a estar pendiente del evento OnCambioDeLuxListener para comunicar los datos del sensor
-    public SensorLux(Context context, OnCambioDeLuxListener listener) {
+    // El constructor recibe el contexto de la aplicación (el Activity.this) y el listener que va a estar pendiente del evento OnCambioDeLuxListener para comunicar los datos del sensor
+    public SensorLuzManager(Context context, OnCambioDeLuxListener listener) {
         // Se vincula el listener externo al propio de la clase y el SENSOR_SERVICE obtenido a través del contexto
         this.listener = listener;
         this.sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);

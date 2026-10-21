@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- NOTAS PERSONALES -->
+    <!-- Permisos requeridos por la app: Acceso a internet, gps (FINE_LOCATION) y ubicacion aproximada por wifi (COARSE_LOCATION) -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Luxmap">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -21,17 +27,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegistrarActivity"
+            android:name=".ui.RegistrarActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".HistorialActivity"
+            android:name=".ui.HistorialActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".MapaActivity"
+            android:name=".ui.MapaActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
+        <!-- La Api Key de Google Maps se entrega acá mediante ${MAPS_API_KEY} proveniente de secrets.properties (Hay que configurar los secrets en build.gradle.kts a nivel de módulo) -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
     </application>
 
 </manifest>
